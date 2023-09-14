@@ -1,0 +1,6 @@
+langchain
+Streamlit
+transformers
+torch
+SentencePiece
+st_pages
