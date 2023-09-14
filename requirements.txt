@@ -3,4 +3,4 @@ Streamlit
 transformers
 torch
 SentencePiece
-st_pages
+altair==4.22
