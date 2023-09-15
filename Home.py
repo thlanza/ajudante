@@ -14,28 +14,28 @@ traducao_model_name = 'unicamp-dl/translation-pt-en-t5'
 traducao_model_filename = "traducao_model.joblib"
 
 def initialLoad():
-    resumo_model = joblib.load(
+    joblib.load(
         hf_hub_download(repo_id=resumo_token_name, filename=resumo_model_filename)
     )
-    resumo_token = joblib.load(
+    joblib.load(
         hf_hub_download(repo_id=resumo_model_name, filename=resumo_model_filename)
     )
-    traducao_model = joblib.load(
+    joblib.load(
         hf_hub_download(repo_id=traducao_model_name, filename=traducao_model_filename)
     )
 
     if 'resumo_model' not in st.session_state:
-        st.session_state['resumo_model'] = resumo_model
+        st.session_state['resumo_model'] = resumo_model_filename
 
     if 'resumo_token' not in st.session_state:
-        st.session_state['resumo_token'] = resumo_token   
+        st.session_state['resumo_token'] = resumo_token_filename   
 
     if 'traducao_model' not in st.session_state:
-        st.session_state['traducao_model'] = traducao_model
+        st.session_state['traducao_model'] = traducao_model_filename
 
 with st.spinner('Carregando modelos...'):
     initialLoad()
-    
+
 st.success("Modelos carregados.")
 
 st.sidebar.success("Selecione uma página abaixo")
