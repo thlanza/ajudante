@@ -3,14 +3,13 @@ from langchain.llms import HuggingFaceHub
 from transformers import T5Tokenizer
 from transformers import T5Model, T5ForConditionalGeneration  
 
-
+token_name = 'unicamp-dl/ptt5-base-portuguese-vocab'
+model_name = 'phpaiola/ptt5-base-summ-xlsum'
+tokenizer = T5Tokenizer.from_pretrained(token_name )
+model_pt = T5ForConditionalGeneration.from_pretrained(model_name)
 
 #Function to return the response
 def load_answer(question):
-    token_name = 'unicamp-dl/ptt5-base-portuguese-vocab'
-    model_name = 'phpaiola/ptt5-base-summ-xlsum'
-    tokenizer = T5Tokenizer.from_pretrained(token_name )
-    model_pt = T5ForConditionalGeneration.from_pretrained(model_name)
     inputs = tokenizer.encode(question, max_length=512, truncation=True, return_tensors='pt')
     summary_ids = model_pt.generate(inputs, max_length=256, min_length=32, num_beams=5, no_repeat_ngram_size=3, early_stopping=True)
     summary = tokenizer.decode(summary_ids[0])
