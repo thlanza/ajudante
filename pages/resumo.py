@@ -3,11 +3,17 @@ from langchain.llms import HuggingFaceHub
 from transformers import T5Tokenizer
 from transformers import T5Model, T5ForConditionalGeneration  
 import joblib
+from huggingface_hub import hf_hub_download
 
-model = joblib.load(st.session_state["resumo_model"])
+with st.spinner('Carregando modelos...'):
+    resumo_model_name = 'phpaiola/ptt5-base-summ-xlsum'
+    resumo_model_filename = "pytorch_model.bin"
+    resumo_model = joblib.load(
+        hf_hub_download(repo_id=resumo_model_name, filename=resumo_model_filename)
+    )
+    tokenizer = T5Tokenizer.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
+    model_pt = T5ForConditionalGeneration.from_pretrained(resumo_model)
 
-tokenizer = T5Tokenizer.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
-model_pt = T5ForConditionalGeneration.from_pretrained(model)
 
 #Function to return the response
 def load_answer(question):
