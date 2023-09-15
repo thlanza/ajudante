@@ -5,3 +5,4 @@ torch
 SentencePiece
 altair==4.2.2
 pydantic==1.10.9
+joblib

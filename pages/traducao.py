@@ -2,8 +2,10 @@ import streamlit as st
 from langchain.llms import HuggingFaceHub
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 
-tokenizer = AutoTokenizer.from_pretrained("unicamp-dl/translation-pt-en-t5")
-model = AutoModelForSeq2SeqLM.from_pretrained("unicamp-dl/translation-pt-en-t5")
+
+model_name = st.session_state['traducao_model']
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 pten_pipeline = pipeline('text2text-generation', model=model, tokenizer=tokenizer)
 
 #Function to return the response

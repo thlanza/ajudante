@@ -3,8 +3,8 @@ from langchain.llms import HuggingFaceHub
 from transformers import T5Tokenizer
 from transformers import T5Model, T5ForConditionalGeneration  
 
-token_name = 'unicamp-dl/ptt5-base-portuguese-vocab'
-model_name = 'phpaiola/ptt5-base-summ-xlsum'
+token_name = st.session_state["resumo_token"]
+model_name = st.session_state["resumo_model"]
 tokenizer = T5Tokenizer.from_pretrained(token_name )
 model_pt = T5ForConditionalGeneration.from_pretrained(model_name)
 
