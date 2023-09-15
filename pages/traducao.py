@@ -1,19 +1,13 @@
 import streamlit as st
 from langchain.llms import HuggingFaceHub
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
-import joblib
 from huggingface_hub import hf_hub_download
 
 with st.spinner('Carregando modelos...'):
     traducao_model_name = 'unicamp-dl/translation-pt-en-t5'
-    traducao_model_filename = "pytorch_model.bin"
-    traducao_model = joblib.load(
-        hf_hub_download(repo_id=traducao_model_name, filename=traducao_model_filename)
-    )
-    tokenizer = AutoTokenizer.from_pretrained(traducao_model)
-    model = AutoModelForSeq2SeqLM.from_pretrained(traducao_model)
+    tokenizer = AutoTokenizer.from_pretrained(traducao_model_name)
+    model = AutoModelForSeq2SeqLM.from_pretrained(traducao_model_name)
     pten_pipeline = pipeline('text2text-generation', model=model, tokenizer=tokenizer)
-
 
 
 #Function to return the response

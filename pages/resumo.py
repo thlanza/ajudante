@@ -2,17 +2,13 @@ import streamlit as st
 from langchain.llms import HuggingFaceHub
 from transformers import T5Tokenizer
 from transformers import T5Model, T5ForConditionalGeneration  
-import joblib
 from huggingface_hub import hf_hub_download
 
 with st.spinner('Carregando modelos...'):
-    resumo_model_name = 'phpaiola/ptt5-base-summ-xlsum'
-    resumo_model_filename = "pytorch_model.bin"
-    resumo_model = joblib.load(
-        hf_hub_download(repo_id=resumo_model_name, filename=resumo_model_filename)
-    )
-    tokenizer = T5Tokenizer.from_pretrained("unicamp-dl/ptt5-base-portuguese-vocab")
-    model_pt = T5ForConditionalGeneration.from_pretrained(resumo_model)
+    token_name = 'unicamp-dl/ptt5-base-portuguese-vocab'
+    model_name = 'phpaiola/ptt5-base-summ-xlsum'
+    tokenizer = T5Tokenizer.from_pretrained(token_name )
+    model_pt = T5ForConditionalGeneration.from_pretrained(model_name)
 
 
 #Function to return the response
