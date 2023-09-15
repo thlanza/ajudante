@@ -2,11 +2,13 @@ import streamlit as st
 from langchain.llms import HuggingFaceHub
 from transformers import T5Tokenizer
 from transformers import T5Model, T5ForConditionalGeneration  
+import joblib
 
-token_name = st.session_state["resumo_token"]
-model_name = st.session_state["resumo_model"]
-tokenizer = T5Tokenizer.from_pretrained(token_name )
-model_pt = T5ForConditionalGeneration.from_pretrained(model_name)
+model = joblib.load(st.session_state["resumo_model"])
+token = joblib.load(st.session_state["resumo_token"])
+
+tokenizer = T5Tokenizer.from_pretrained(token)
+model_pt = T5ForConditionalGeneration.from_pretrained(model)
 
 #Function to return the response
 def load_answer(question):
